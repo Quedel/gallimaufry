@@ -108,6 +108,12 @@ if [ $resu_code -ne 0 -o -n "`echo "$resu" | grep snmpwalk:`" ]; then
     exit $RET_UNKN
 fi
 
+# no result/object?
+if [ -n "`echo "$resu" | grep 'No Such Object'`" ]; then
+    echo "UNKNOWN - $resu"
+    exit $RET_UNKN
+fi
+
 # grep the right value
 case "$INTERVAL" in
     5)
